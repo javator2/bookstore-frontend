@@ -48,6 +48,7 @@ public class BookstoreFrontendApplication implements CommandLineRunner {
 
 		Set<Role> adminRoles = new HashSet<>();
 		adminRoles.add(adminRole);
+		adminRoles.add(userRole);
 
 		Set<Role> userRoles = new HashSet<>();
 		userRoles.add(userRole);

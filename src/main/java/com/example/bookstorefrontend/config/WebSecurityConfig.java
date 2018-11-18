@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 @Configuration
 @EnableWebSecurity
@@ -27,14 +28,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new ShoutEncoder();
     }
 
+    @Bean
+    public SpringSecurityDialect securityDialect() {
+        return new SpringSecurityDialect();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/about", "/proba").permitAll()
+                .antMatchers("/about", "/proba", "/books").permitAll()
                 .antMatchers("/books/add").hasRole("ADMIN")
         .anyRequest().authenticated()
         .and()
-        .formLogin()
+        .formLogin().defaultSuccessUrl("/books", true)
         .and().httpBasic()
         .and().exceptionHandling().accessDeniedPage("/403");
     }

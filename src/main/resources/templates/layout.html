@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         lang="en">
 <head>
@@ -10,6 +11,19 @@
 <header>
     <h1 th:align="center">Książki</h1>
 </header>
+
+<div sec:authorize="!isAuthenticated()">
+    <a th:href="@{/login}">Logowanie</a>
+</div>
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    Cześć ADMIN
+</div>
+
+<div sec:authorize="hasRole('ROLE_USER')">
+    Cześć USER
+</div>
+
 <section layout:fragment="content"></section>
 <footer>
     <div th:align="center">BookStore&copy; 2018</div>
