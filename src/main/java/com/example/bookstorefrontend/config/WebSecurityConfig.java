@@ -17,13 +17,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/about", "/proba").permitAll()
+                .antMatchers("/books/add").hasRole("ADMIN")
         .anyRequest().authenticated()
         .and()
         .formLogin()
-        .and().httpBasic();
+        .and().httpBasic()
+        .and().exceptionHandling().accessDeniedPage("/403");
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        UserDetails user = User.withUsername("user").password("{noop}user").roles("USER").build();
+        UserDetails admin = User.withUsername("admin").password("{noop}admin").roles("ADMIN").build();
+
+        auth.inMemoryAuthentication().withUser(user).withUser(admin);
     }
 }
