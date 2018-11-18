@@ -51,6 +51,8 @@ public class BookstoreFrontendApplication implements CommandLineRunner {
 		userRepository.save(new User("admin", "{noop}admin", adminRoles));
 		userRepository.save(new User("user", "{noop}user", userRoles));
 
-		System.out.println(userRepository.findAll());
+		userRepository.findByUsername("user").ifPresent(System.out::println);
+		System.out.println(roleRepository.findRolesByUsername("user"));
+//		System.out.println(userRepository.findByUsername("user"));
 	}
 }
