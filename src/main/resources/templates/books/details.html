@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout"
+      lang="en">
+<body>
+    <section layout:fragment="content">
+        <p>Tytuł: <span th:text="${book.title}" /></p>
+        <p>Autor: <span th:text="${book.author}"/></p>
+        <p>Treść: <span th:text="${book.description}"/></p>
+    </section>
+</body>
+</html>

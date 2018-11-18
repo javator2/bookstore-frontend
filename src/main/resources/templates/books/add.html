@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout"
+      lang="en">
+<body>
+    <section layout:fragment="content">
+        <p>Nowa książka</p>
+        <form action="#" th:action="@{/books/add}" method="post">
+            <label for="title">Tytuł: </label><input type="text" id="title" name="title" />
+            <label for="author">Autor: </label><input type="text" id="author" name="author" />
+            <input type="submit" value="Dodaj wpis" />
+        </form>
+    </section>
+</body>
+</html>
