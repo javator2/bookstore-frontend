@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +27,9 @@ public class BookstoreFrontendApplication implements CommandLineRunner {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BookstoreFrontendApplication.class, args);
@@ -48,8 +52,8 @@ public class BookstoreFrontendApplication implements CommandLineRunner {
 		Set<Role> userRoles = new HashSet<>();
 		userRoles.add(userRole);
 
-		userRepository.save(new User("admin", "{noop}admin", adminRoles));
-		userRepository.save(new User("user", "{noop}user", userRoles));
+		userRepository.save(new User("admin", passwordEncoder.encode("admin"), adminRoles));
+		userRepository.save(new User("user", passwordEncoder.encode("user"), userRoles));
 
 		userRepository.findByUsername("user").ifPresent(System.out::println);
 		System.out.println(roleRepository.findRolesByUsername("user"));
